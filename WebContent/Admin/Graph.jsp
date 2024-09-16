@@ -28,7 +28,7 @@
     for(int i = 0; i < cb.size(); i++){
     	target.add("'"+cb.get(i).getCar_maker()+"'");
     	count.add(cb.get(i).getCar_id());
-    	System.out.print(cb.get(i).getCar_id());
+    	//system.out.print(cb.get(i).getCar_id());
    	 }
     }
     %>

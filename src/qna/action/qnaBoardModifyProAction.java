@@ -46,7 +46,7 @@ public class qnaBoardModifyProAction implements action {
 		qnaBoardModifyService qnaBoardModifyService= new qnaBoardModifyService();
 		
 		boolean iswritesucce= qnaBoardModifyService.regisartiset(qnaboardbean);
-		System.out.println(iswritesucce+"수정결과");
+//		System.out.println(iswritesucce+"수정결과");
 		
 		
 

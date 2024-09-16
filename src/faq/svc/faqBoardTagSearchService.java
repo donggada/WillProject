@@ -34,7 +34,7 @@ public class faqBoardTagSearchService {
 	
 	
 	public ArrayList<faqBoardbean> getarticlelist(int page, int limit, String tag) {
-		System.out.println(tag+"서비스조회");
+		//System.out.println(tag+"서비스조회");
 		ArrayList<faqBoardbean> articlelist=null;
 		
 		Connection con=getconnection();

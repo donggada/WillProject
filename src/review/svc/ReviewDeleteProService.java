@@ -1,10 +1,15 @@
 package review.svc;
 
+import static faq.db.jdbcutil.close;
+import static faq.db.jdbcutil.commit;
+import static faq.db.jdbcutil.getconnection;
 import static review.db.jdbcUtil.*;
 
 import java.sql.Connection;
 
+import faq.dao.faqBoardDAO;
 import review.dao.ReviewDAO;
+import review.vo.ReviewBean;
 
 public class ReviewDeleteProService {
 	
@@ -36,6 +41,27 @@ public class ReviewDeleteProService {
 		}
 		close(con);
 		return isDeleteSuccess;
+	}
+
+	public int removeArticleadmin(ReviewBean reviewbean) {
+int check = 0;
+		
+		Connection con=getconnection();
+		ReviewDAO reviewDAO = ReviewDAO.getInstance();
+		reviewDAO.setConnection(con);
+		
+		
+		int updatedelete=reviewDAO.delete(reviewbean.getReview_num());
+		commit(con);
+		
+		
+		
+		
+		
+		close(con);
+		return check;
+		
+		
 	}
 
 }

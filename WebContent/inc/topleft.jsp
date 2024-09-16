@@ -71,7 +71,7 @@
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                      <a class="nav-link" href="CarList.ad">차량조회</a>
-             						 <a class="nav-link" href="#">차량등록</a>
+             						 <a class="nav-link" onclick="insertcar()">차량등록</a>
                                 </nav>
                             </div>
                             
@@ -143,6 +143,17 @@
                     </div>
                 </nav>
             </div>
+<script type="text/javascript">
+var popupX = (window.screen.width/2)-(350/2);
+//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
 
+var popupY= (window.screen.height/2)-(350/2);
+//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+function insertcar() {
+
+	 window.open('Admin/InsertCar.jsp', '차량등록', 'status=no, height=750, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
+}
+</script>
 </body>
 </html>

@@ -21,7 +21,7 @@ public class faqBoardTagSearchAction implements action {
 		int page=1;
 		int limit=10;
 		String tag=request.getParameter("tag");
-		System.out.println(tag);
+//		System.out.println(tag);
 		
 		if(request.getParameter("page")!=null) {
 			page=Integer.parseInt(request.getParameter("page"));
@@ -54,7 +54,7 @@ public class faqBoardTagSearchAction implements action {
 		
 		forward= new actionForward();
 		forward.setRedirect(false); // 기본값이므로 생략이 가능 
-		forward.setPath("/FAQ/FAQ_list.jsp");
+		forward.setPath("/Admin/FAQ_listadmin.jsp");
 		
 		
 		

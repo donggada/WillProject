@@ -49,6 +49,25 @@ public class faqBoardListservice {
 		return articlelist;
 		
 	}
+
+
+
+
+	public ArrayList<faqBoardbean> getarticlelist2(int page, int limit) {
+	ArrayList<faqBoardbean> articlelist=null;
+		
+		Connection con=getconnection();
+		faqBoardDAO faqBoard=faqBoardDAO.getinstance();
+		faqBoard.setCon(con);
+		
+		
+		articlelist=faqBoard.selectarticlelist2(page,limit);
+		
+		
+		
+		close(con);
+		return articlelist;
+	}
 	
 	
 	

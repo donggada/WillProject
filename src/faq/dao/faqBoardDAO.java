@@ -83,7 +83,7 @@ private static faqBoardDAO instance; {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("qboard selectlist오류");
+			////system.out.println("qboard selectlist오류");
 		}finally {
 			close(rs); //jdbcutil.close()
 			close(pstmt);
@@ -131,7 +131,7 @@ private static faqBoardDAO instance; {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("countselect오류");
+			////system.out.println("countselect오류");
 		}finally {
 			close(rs); //jdbcutil.close()
 			close(pstmt);
@@ -174,7 +174,7 @@ public ArrayList<faqBoardbean> searchselectlist(int page, int limit, String sear
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("searchlist오류");
+			////system.out.println("searchlist오류");
 		}finally {
 			close(rs); //jdbcutil.close()
 			close(pstmt);
@@ -207,7 +207,7 @@ public int searchselectlist(String search) {
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-		System.out.println("faqboard selectarticlelist오류");
+		////system.out.println("faqboard selectarticlelist오류");
 	}finally {
 		close(rs); 
 		close(pstmt);
@@ -253,7 +253,7 @@ public ArrayList<faqBoardbean> tagselectlist(int page, int limit, String search)
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		System.out.println("searchlist오류");
+		////system.out.println("searchlist오류");
 	}finally {
 		close(rs); //jdbcutil.close()
 		close(pstmt);
@@ -286,7 +286,7 @@ try {
 	
 } catch (SQLException e) {
 	e.printStackTrace();
-	System.out.println("faqboard selectarticlelist오류");
+	////system.out.println("faqboard selectarticlelist오류");
 }finally {
 	close(rs); 
 	close(pstmt);
@@ -322,7 +322,7 @@ public ArrayList<faqBoardbean> selectcontent(int num) {
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-		System.out.println("faqboard selectarticlelist오류");
+		////system.out.println("faqboard selectarticlelist오류");
 	}finally {
 		close(pstmt);
 	}
@@ -352,7 +352,7 @@ public int insertArticle(faqBoardbean article) {
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-		System.out.println("insert에러");
+		////system.out.println("insert에러");
 	}finally {
 		close(rs); //jdbcutil.close()
 		close(pstmt);
@@ -379,7 +379,7 @@ public int delete(int num) {
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-		System.out.println("delete에러");
+		////system.out.println("delete에러");
 	}finally {
 		close(pstmt);
 	}
@@ -390,7 +390,7 @@ public int delete(int num) {
 }
 
 public int modifyArticle(faqBoardbean article) {
-	System.out.println("수정dao");
+	////system.out.println("수정dao");
 	int insertCount = 0;
 	
 	PreparedStatement pstmt = null;
@@ -408,7 +408,7 @@ public int modifyArticle(faqBoardbean article) {
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-		System.out.println("update에러");
+		////system.out.println("update에러");
 	}finally {
 		close(pstmt);
 	}
@@ -451,7 +451,7 @@ public faqBoardbean getcontent(int faqboardnum) {
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-		System.out.println("board content오류");
+		////system.out.println("board content오류");
 	}finally {
 		close(rs); 
 		close(pstmt);
@@ -459,6 +459,49 @@ public faqBoardbean getcontent(int faqboardnum) {
 	
 	
 	return article;
+}
+
+public ArrayList<faqBoardbean> selectarticlelist2(int page, int limit) {
+	ArrayList<faqBoardbean> list=null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	
+	try {
+		int startrow=(page-1)*5;
+		
+		
+		String sql="select *from faqBoard order by faqBoard_num desc limit ?, ?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, startrow); //시작레코드번호 
+		pstmt.setInt(2, limit); //게시글 수
+		rs=pstmt.executeQuery();
+		
+		
+		list = new ArrayList<faqBoardbean>();
+		while(rs.next()) {
+			faqBoardbean article = new faqBoardbean();
+			article.setFaqboard_num(rs.getInt("faqBoard_num"));
+			article.setFaqboard_subject(rs.getString("faqBoard_subject"));
+			article.setFaqboard_content(rs.getString("faqBoard_content"));
+			article.setFaqBoard_tag(rs.getString("faqBoard_tag"));
+
+			list.add(article);
+		}
+		
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		////system.out.println("countselect오류");
+	}finally {
+		close(rs); //jdbcutil.close()
+		close(pstmt);
+	}
+	
+	
+	return list;
 }
 
 

@@ -50,7 +50,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 - 정렬 / 찾기 / 횟수  금액 
+                                -
                                 <a target="_blank" href="#">official DataTables documentation</a>
                                 .
                             </div>
@@ -172,26 +172,19 @@
 
 			
 	<select class="form-control" id="exampleSelect2" name="member_grade">
-			<%if(articleList.get(i).getMember_grade().equals("일반/NEW")){ %>
-        <option value="일반/NEW" selected="selected">일반/NEW</option>
-		     <option value="SILVER">SILVER</option>
-        <option value="GOLD">GOLD</option>
-        <option value="VIP">VIP</option>
-			<%}else if(articleList.get(i).getMember_grade().equals("SILVER")){%>
-        <option value="일반/NEW" >일반/NEW</option>
-        <option value="SILVER" selected="selected">SILVER</option>
+		
+			<%if(articleList.get(i).getMember_grade().equals("Silver")){%>
+        <option value="Silver" selected="selected">SILVER</option>
         <option value="GOLD">GOLD</option>
         <option value="VIP">VIP</option>
       
       <%}else if(articleList.get(i).getMember_grade().equals("GOLD")){%>
-        <option value="일반/NEW" >일반/NEW</option>
-        <option value="SILVER">SILVER</option>
+        <option value="Silver">SILVER</option>
         <option value="GOLD" selected="selected">GOLD</option>
         <option value="VIP">VIP</option>
       
       <%}else if(articleList.get(i).getMember_grade().equals("VIP")){%>
-        <option value="일반/NEW" >일반/NEW</option>
-        <option value="SILVER">SILVER</option>
+        <option value="Silver">SILVER</option>
         <option value="GOLD">GOLD</option>
         <option value="VIP" selected="selected">VIP</option>
 			<%} %>

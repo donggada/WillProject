@@ -14,7 +14,7 @@
 </head>
 <body> 
 
-<%-- <%System.out.println(id);%> --%>
+<%-- <%//system.out.println(id);%> --%>
 
 <form action="BookForm2.bk" method="post">
 <h2>기간선택</h2>

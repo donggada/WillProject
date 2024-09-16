@@ -20,7 +20,6 @@ public class faqBoardSearchAction implements action {
 		int page=1;
 		int limit=10;
 		String search=request.getParameter("search");
-		System.out.println(search);
 		
 		if(request.getParameter("page")!=null) {
 			page=Integer.parseInt(request.getParameter("page"));
@@ -53,7 +52,7 @@ public class faqBoardSearchAction implements action {
 		
 		forward= new actionForward();
 		forward.setRedirect(false); // 기본값이므로 생략이 가능 
-		forward.setPath("/FAQ/FAQ_list.jsp");
+		forward.setPath("/Admin/FAQ_listadmin.jsp");
 		
 		
 		

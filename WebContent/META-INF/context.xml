@@ -7,7 +7,7 @@
 		driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/willdb"
 		username="root"
-		password="12345678"
+		password="1234"
 		maxActive="100"
 		maxIdle="20"
 	/>

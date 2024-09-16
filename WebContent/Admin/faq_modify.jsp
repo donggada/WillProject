@@ -35,7 +35,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 - 
+                              -
                                 <a target="_blank" href="#">official DataTables documentation</a>
                                 .
                             </div>

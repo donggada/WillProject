@@ -40,7 +40,7 @@ int endPage = pageInfo.getEndPage();
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 -  다중삭제 / 추천 수별 정렬
+                            -
                                 <a target="_blank" href="#">official DataTables documentation</a>
                                 .
                             </div>
@@ -59,10 +59,8 @@ int endPage = pageInfo.getEndPage();
 	       <form action="qnaSearchPro.fbo" class="form-inline my-2 my-lg-0">   
        <select class="custom-select" style="width: 100px; margin-right: 5px; float: left;">
       <option selected="">Search</option>
-      <option value="1">IDX</option>
-      <option value="2">NAME</option>
-      <option value="3">Car_N</option>
-       <option value="4">Satus</option>
+      <option value="1">제목</option>
+      <option value="2">작성자</option>
     </select>
       <input name="search" id="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -77,11 +75,13 @@ int endPage = pageInfo.getEndPage();
  <tr id="tr_top">
  <th scope="col">번호</td>
  <th scope="col">제목</td>
- <th scope="col">작성자</td>
- <th scope="col">날짜</td>
- <th scope="col">조회수</td>
- <th scope="col">추천수</td>
+ <th scope="col" style="width: 250px;">작성자</td>
+ <th scope="col" style="width: 200px;">날짜</td>
+ <th scope="col" style="width: 200px;">조회수</td>
+ <th scope="col" style="width: 200px;">추천수</td>
  <th scope="col" style="width: 100px;">
+ 
+ 
  <form action="reviewdelete.ad">
  <button type="submit" class="btn btn-primary" style="margin: -20px">삭제</button>
  </th>
@@ -100,6 +100,9 @@ if(articleList != null && listCount>0){
  <td><%=articleList.get(i).getReview_readcount() %></td>
  <td><%=articleList.get(i).getReview_recocount() %></td>
  	<td>
+		<input type="hidden" name="num" value="<%=articleList.get(i).getReview_num()%>">
+
+					
 					<input type="checkbox" name="check" value="<%=articleList.get(i).getReview_num()%>">
 					<input type="hidden" name="page" value="<%=nowPage%>">
 					</td>
@@ -117,35 +120,53 @@ if(articleList != null && listCount>0){
      </div>
 
 
-<input type="button" value="글쓰기" onclick="location.href='ReviewWriteForm.rw'">
-    <%if(nowPage<=1){ %>
-    [이전]
-    <%}else{ %>
-        <a href="ReviewList.rw?page=<%=nowPage-1 %>">[이전]</a>
-    <%} %>
-    <%for(int a=startPage; a<=endPage; a++){ 
-        if(a==nowPage){%>
-            [<%=a %>]
-    <%} else { %>
-        <a href="ReviewList.rw?page=<%=a %>">[<%=a %>]</a>
-        <%} %>    
-    <%} %>
-    <%if(nowPage>=maxPage){ %>
-        [다음]
-    <%}else{ %>    
-        <a href="ReviewList.rw?page=<%=nowPage+1 %>">[다음]</a>
-    <%} %>
-<%}else{
-	%><section id="emptyArea">등록된 글이 없습니다.</section>
+	
+	
+	<section id="pageList">
+	<ul class="pagination pagination-sm">
+	
+	<%if(nowPage <= 1) { %>
+			 <li class="page-item disabled">
+      <a class="page-link" href="#">&laquo;</a>
+    </li>
+	<%} else {%>
+	   <li class="page-item disabled">
+			<a href="ReviewList.rw?page=<%=nowPage-1 %>">" class="page-link">&laquo;</a>&nbsp;
+			</li>
 	<%} %>
 	
+	<%for(int i = startPage; i <= endPage; i++) {
+		    if(i == nowPage) {%>
+				 <li class="page-item active">
+     <a class="page-link" href="#"><%=i %></a>
+		<%} else {%>
+		 <li class="page-item">
+				<a href="ReviewList.rw?page=<%=i %>"><%=i %></a>&nbsp;
+		<%} %>
+	<%} %>
+	
+	<%if(nowPage >= maxPage) {%>
+			  <li class="page-item">
+      <a class="page-link" href="#">&raquo;</a>
+	<%} else { %>
+	<li class="page-item">
+			   <a href="ReviewList.rw?page=<%=nowPage+1 %>">" class="page-link">&raquo;</a>
+	<%} %>
+	
+	  </li>
+  </ul>
+	</section>
+<%} else {%>
+	<section id="emptyArea">등록된 글이 없습니다.</section>
+<%} %>
+
+      </div>
+                            </div>
+                        </div>
 	
     
 	</div>
-	</div>
-	</div>
-	</main>
-	</div>
+
 	
 	
 	

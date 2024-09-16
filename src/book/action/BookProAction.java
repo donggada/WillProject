@@ -18,68 +18,59 @@ public class BookProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
 
-
+		String selCarType = request.getParameter("SelCarType");
+		
 		ActionForward forward = null;
 
-		ServletContext context = request.getServletContext();
-
 		BookBean bb = new BookBean();
+		Date date1 = new Date(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("pickup")).getTime());
+		Date date2 = new Date(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end")).getTime());
 
-//		date 타입 -> String 변환
-//		String oldstring = "2011-01-18 00:00:00.0";
-//		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
+		int rentday = (int) ((date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000));
 
-		Date date = new Date(new SimpleDateFormat("yyyyMMdd").parse(request.getParameter("book_date")).getTime());
-		Date date1 = new Date(new SimpleDateFormat("yyyyMMdd").parse(request.getParameter("pickup_date")).getTime());
-		Date date2 = new Date(new SimpleDateFormat("yyyyMMdd").parse(request.getParameter("end_date")).getTime());
+		String id = request.getParameter("member_id");
+//		String snsid = request.getParameter("snsid");
 
-//		Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("pickup_date"));
-//		Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end_date"));
+//		String SelCarType = request.getParameter("SelCar"); 
+//		
 
-//		date = new java.sql.Date(date)
-		
-		Timestamp date4=new Timestamp(System.currentTimeMillis());
+//		BookBean bb = (BookBean)request.getAttribute("bookList");
 
-		
-		bb.setBook_date2(date4);	
-		
-		
-		bb.setBook_date(date);
+//		System.out.println(SelCarType);
+		bb.setBook_num(Integer.parseInt(request.getParameter("book_num")));
+		bb.setMember_id(id);
 		bb.setPickup_date(date1);
 		bb.setEnd_date(date2);
-
-//		Java.sql.Date date = new Java.sql.Date(pickedDate.getDate().getTime
-
-//		System.out.println(request.getParameter("book_date"));
-//		System.out.println(request.getParameter("pickup_date"));
-//		System.out.println(request.getParameter("end_date"));
+		bb.setCar_id(request.getParameter("car_id"));
+		bb.setBook_state(1);
+		bb.setBook_price(Integer.parseInt((request.getParameter("rentprice"))));
 
 		BookProService bps = new BookProService();
-
 		boolean isWriteSuccess = bps.registBook(bb);
 
-		if (!isWriteSuccess) { // 요청 실패했을 경우
-			// 자바스크립트를 사용하여 오류 메세지 출력 후 이전 페이지로 이동
-			// PrintWriter 객체를 사용하여 자바스크립트 코드를 출력
-			// response 객체를 사용하여 문서 타입 설정 및 PrintWriter 객체 가져오기
-			response.setContentType("text/html;charset=UTF-8"); // 문서 타입 설정
-			PrintWriter out = response.getWriter(); // PrintWriter 객체 가져오기
-			// println() 메서드를 사용하여 자바스크립트를 문자열로 출력
-			out.println("<script>"); // 자바스크립트 시작
-			out.println("alert('잠시후 다시 시도해 주세요')"); // 오류 메세지 출력
-			out.println("history.back()"); // 이전 페이지로 이동
-			out.println("</script>"); // 자바스크립트 끝
-		} else { // 요청 성공했을 경우
-			// ActionForward 객체를 생성하여 포워딩 방식 및 URL 지정
+		if (isWriteSuccess) {
+			System.out.println(bb.getBook_num());
+
+			BookBean bookList = bps.selectBookNum(bb);
+			request.setAttribute("bookList", bookList);
 			forward = new ActionForward();
-			// BoardList.bo 서블릿 주소를 새로 요청하고, request 객체 유지할 필요가 없음
-			// => Redirect 방식으로 포워딩 처리
-			forward.setRedirect(true); // Redirect 방식 지정
-			forward.setPath("bookList.bk"); // 포워딩 할 URL 지정
+			forward.setPath("book/BookForm3.jsp");
+
+		} else {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			request.setAttribute("carList", bb);
+			
+			out.println("<script>");
+			out.println("alert('결재 실패!');");
+			out.println("location.href='BookForm2.bk?car_id="+bb.getCar_id()+"&pickup_date="+bb.getPickup_date()+"&end_date="+bb.getEnd_date()+"&rentprice="+bb.getBook_price()+"&SelCar="+selCarType+"&rentday="+rentday+"&member_id="+bb.getMember_id()+"&book_num="+bb.getBook_num()+"'");
+			out.println("</script>");
+			out.println("<%request.setAttribute(\"carList\", bb);\r\n" + "%>");
 		}
 
-		// TODO Auto-generated method stub
 		return forward;
 	}
 

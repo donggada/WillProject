@@ -1,9 +1,58 @@
+
+
+<%@page import="admin.svc.MemberListService"%>
+<%@page import="member.vo.MemberBean"%>
+<%@page import="admin.dao.AdminDAO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
+<%
+String snsid = (String)session.getAttribute("Member_snsid");
+String id = (String)session.getAttribute("Member_id");
+
+MemberBean mb = null;
+String baby = null;
+String smoke = null;
+String pet = null;
+
+if(id != null){
+	
+	MemberListService ms = new MemberListService();
+	mb = ms.selectMemberBean(id);
+// 	AdminDAO ad =  AdminDAO.getMdao();
+	
+	pet = mb.getMember_pet();
+	smoke = mb.getMember_smoke();
+	baby = mb.getMember_boby();
+}
+
+if(pet==null){
+	
+	System.out.println("pet  은 널 입니다.");
+}
+
+
+System.out.println("인덱스 처음"+baby);
+System.out.println(pet);
+System.out.println(smoke);
+
+%>
+
 <script src="js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
+var popupX = (window.screen.width/2)-(500/2);
+//만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+var popupY= (window.screen.height/2)-(500/2);
+//만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+
+	  // window.open("open할 window", "자식창 이름", "팝업창 옵션"); 
+	 //window.open('Pop/PoP.jsp', 'Event', 'status=no, height=600, width=600, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
+
 	$(document).ready(
 			function() {
 				var today = new Date();
@@ -30,6 +79,23 @@
 									.toISOString().substring(0, 10);
 							pickup.setDate(pickup.getDate() + 7);
 						});
+
+			
+				
+				$('#indexSubmit').submit(function(){
+					var id = $('#id').val() ;
+					if(id=="null"){
+						
+						alert("로그인해 주세요")
+					return false;
+					}
+
+					return true;
+			      });    
+				
+			
+				
+				
 			});
 
 	//     $('table tr td').click(function() {
@@ -56,7 +122,8 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
 
-<title>Cardoor - xxxxxxxxxxxxxxxxxxxxte</title>
+<title>Cardoor - test2</title>
+
 
 
 <!--=== Bootstrap CSS ===-->
@@ -86,6 +153,8 @@
 </head>
 
 <body class="loader-active">
+
+<input type="hidden" id="id" value="<%=id%>">
 
 	<!--== Preloader Area Start ==-->
 	<div class="preloader">
@@ -138,13 +207,13 @@
                                 </select>
                             </div>
 
-                       <form action="BookForm2.bk" method="post">
+                       <form action="BookForm2.bk" method="post" id="indexSubmit">
                             <div class="pick-date bookinput-item">
-                               <input type="date" id="pickup_date" name="pickup_date">
+                               <input type="date" id="pickup_date" name="pickup_date" style="height: 40px;" >
                             </div>
 
                             <div class="retern-date bookinput-item">
-                               <input type="date" id="end_date" name="end_date">
+                               <input type="date" id="end_date" name="end_date" style="height: 40px;">
                             </div>
 
                             <div class="car-choose bookinput-item">
@@ -165,69 +234,31 @@
                             </div>
 
                             <div class="bookcar-btn bookinput-item">
-                                <button type="submit">Book Car</button>
+
+                            
+                            
+                           <%if(baby != null) {%>
+                           <input type="hidden" name="option_baby" value ="<%=baby%>">
+                            <%} %>
+                                                       <%if(smoke != null) {%>
+                           <input type="hidden" name="option_smoke" value ="<%=smoke%>">
+                            <%} %>
+                                                       <%if(pet != null) {%>
+                           <input type="hidden" name="option_pet" value ="<%=pet%>">
+                            <%} %>
+							
+
+                                <button type="submit" >Book Car</button>
                             </div>
                         </form>
                     </div>
-                </div>
+                </div>	
             </div>
         </div>
     </div>
     <!--== Book A Car Area End ==-->
 
-	<!--== About Us Area Start ==-->
-	<!--     <section id="about-area" class="section-padding"> -->
-	<!--         <div class="container"> -->
-	<!--             <div class="row"> -->
-	<!--                 Section Title Start -->
-	<!--                 <div class="col-lg-12"> -->
-	<!--                     <div class="section-title  text-center"> -->
-	<!--                         <h2>About us</h2> -->
-	<!--                         <span class="title-line"><i class="fa fa-car"></i></span> -->
-	<!--                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-	<!--                     </div> -->
-	<!--                 </div> -->
-	<!--                 Section Title End -->
-	<!--             </div> -->
-
-	<!--             <div class="row"> -->
-	<!--                 About Content Start -->
-	<!--                 <div class="col-lg-6"> -->
-	<!--                     <div class="display-table"> -->
-	<!--                         <div class="display-table-cell"> -->
-	<!--                             <div class="about-content"> -->
-	<!--                                 <p>Lorem simply dummy is a texted of the printing costed and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.</p> -->
-
-	<!--                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi aliquid debitis optio praesentium, voluptate repellat accusantium deserunt eius.</p> -->
-	<!--                                 <div class="about-btn"> -->
-	<!--                                     <a href="#">Book a Car</a> -->
-	<!--                                     <a href="#">Contact Us</a> -->
-	<!--                                 </div> -->
-	<!--                             </div> -->
-	<!--                         </div> -->
-	<!--                     </div> -->
-	<!--                 </div> -->
-	<!--                 About Content End -->
-
-	<!--                 About Video Start -->
-	<!--                 <div class="col-lg-6"> -->
-	<!--                     <div class="about-video"> -->
-	<!--                         <iframe src="https://player.vimeo.com/video/121982328?title=0&byline=0&portrait=0"></iframe> -->
-	<!--                     </div> -->
-	<!--                 </div> -->
-	<!--                 About Video End -->
-	<!--             </div> -->
-	<!--         </div> -->
-	<!--     </section> -->
-	<!--     == About Us Area End == -->
-
-	<!--                     </div> -->
-	<!--                 </div> -->
-	<!--             </div> -->
-	<!--         </div> -->
-	<!--     </div> -->
-	<!--     == Partner Area End == -->
-
+	
 	<!--== Services Area Start ==-->
 	<section id="service-area" class="section-padding">
 		<div class="container">
@@ -869,8 +900,6 @@
 	<!--== Scroll Top Area Start ==-->
 	<div id="chat">
 		<!-- <img alt="카카오" src="img/pc_img_kakao.jpg" onclick="script:alert('아직은 미지원 입니다 ^^b');"><br> -->
-		<img alt="웹 채팅" src="img/pc_btn_chat.png"
-			onclick="window.open('chat/chat_bot.jsp','new','width=800, height=600, resizable=no')">
 	</div>
 	<div class="scroll-top">
 		<img src="assets/img/scroll-top.png" alt="JSOFT">

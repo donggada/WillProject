@@ -7,8 +7,8 @@
 <%
 ArrayList<BookBean> bookList = (ArrayList<BookBean>)request.getAttribute("bookList");
 ReviewBean article = (ReviewBean)request.getAttribute("article");
-String id=(String)session.getAttribute("id");
-String snsid=(String)session.getAttribute("snsid");
+String id=(String)session.getAttribute("Member_id");
+String snsid=(String)session.getAttribute("Member_snsid");
 %>
 <html>
 <head>

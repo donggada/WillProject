@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import faq.svc.faqBoardListservice;
 import faq.vo.actionForward;
 import faq.vo.faqBoardbean;
 import faq.vo.pageinfo;
-import sun.security.krb5.internal.PAForUserEnc;
 
 public class faqBoardListaction implements action {
 
@@ -21,7 +19,7 @@ public class faqBoardListaction implements action {
 		
 		
 		int page=1;
-		int limit=8;
+		int limit=5;
 
 		
 		if(request.getParameter("page")!=null) {
@@ -33,7 +31,7 @@ public class faqBoardListaction implements action {
 		
 		int listcount = boardlist.getlistcount();
 
-		ArrayList<faqBoardbean> articlelist=boardlist.getarticlelist(page,limit);
+		ArrayList<faqBoardbean> articlelist=boardlist.getarticlelist2(page,limit);
 
 		
 		int maxpage = (int)((double)listcount/limit +0.95);
@@ -55,7 +53,7 @@ public class faqBoardListaction implements action {
 		
 		
 		forward= new actionForward();
-		forward.setRedirect(false); // 기본값이므로 생략이 가능 
+		forward.setRedirect(false);
 		forward.setPath("/FAQ/FAQ_list.jsp");
 		
 		return forward;

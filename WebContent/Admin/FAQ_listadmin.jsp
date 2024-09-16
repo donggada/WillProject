@@ -76,7 +76,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 - 
+                              - 
                                 <a target="_blank" href="#">official DataTables documentation</a>
                                 .
                             </div>
@@ -140,7 +140,8 @@
 			</td>
 					<td>
 	
-	<%=articleList.get(i).getFaqboard_subject() %>
+	<a href="javascript:void(0)" id="num" class="numbtn" onclick="show('<%=articleList.get(i).getFaqboard_num()%>')">
+	<%=articleList.get(i).getFaqboard_subject() %>  </a>
 	 <a href="faqmodifyform.fbo?faqBoard_num=<%=articleList.get(i).getFaqboard_num()%>&page=<%=nowPage%>">
 	 <span class="badge badge-pill badge-primary">수정</span>
 
@@ -156,6 +157,35 @@
 			</tbody>
 		</table>		
 	</section>
+	
+	<div class="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">FAQ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+    <div class="modal-footer">
+        <a href="qnawrite.bo?id=<%=id %>"><button type="button" class="btn btn-primary" onclick="">1:1문의</button></a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+		<div style="float: right;">
+	   <form action="qnaSearchPro.fbo" class="form-inline my-2 my-lg-0">
+      <input name="search" id="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    </div>
+	
+	
+	
 	
 
 	
@@ -188,7 +218,7 @@
 				 <li class="page-item active">
       <a class="page-link" href="#"><%=i %></a>
 		<%} else {%>
-		 <li class="page-item active">
+		 <li class="page-item">
 				<a href="faqadminlist.fbo?page=<%=i %>" class="page-link"><%=i %></a>&nbsp;
 		<%} %>
 	<%} %>
@@ -236,6 +266,45 @@
 
 </script>
 
+
+<script src="js/jquery-3.5.1.js">
+</script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	$('.numbtn').click(function() {
+		var num=temp;
+// 		alert(num);
+
+		 $(".modal").fadeIn();
+		$.ajax('FAQ/dup2.jsp',{
+				data:{
+					num:num,
+				},
+				
+				success:function(returndata){
+					$('.modal-body').html(returndata);
+				},
+				
+				error:function(xhr,status,error){
+					alert(erroer);
+				}
+			});
+			
+		});
+	
+	
+	  $(".modal").click(function() {
+		    $(".modal").fadeOut();
+		  });
+	
+	  
+	  
+	  
+});
+
+</script>
 
 <script src="js/jquery-3.5.1.js">
 </script>

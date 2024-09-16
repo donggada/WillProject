@@ -99,8 +99,8 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		
 		try {
-			int startRow = (page-1) *10;
-			String sql = "SELECT * FROM review ORDER BY review_subject DESC LIMIT ?,?";
+			int startRow = (page-1) *3;
+			String sql = "SELECT * FROM review ORDER BY review_num DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -286,6 +286,39 @@ public class ReviewDAO {
 	}
 	//리뷰 삭제
 	public int deleteArticle(int review_num) {
+		int deleteCount = 0;
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "DELETE FROM review WHERE review_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, review_num);
+			deleteCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return deleteCount;
+	}
+	
+	public int deleteArticle(ReviewBean reviewbean) {
+		int deleteCount = 0;
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "DELETE FROM review WHERE review_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, reviewbean.getReview_num());
+			deleteCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return deleteCount;
+	}
+	
+	
+	public int delete(int review_num) {
 		int deleteCount = 0;
 		PreparedStatement pstmt = null;
 		try {

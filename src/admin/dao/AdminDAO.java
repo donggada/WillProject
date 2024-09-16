@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 
 import admin.vo.CarBean;
 import book.vo.BookBean;
+import book.vo.CarBean.CAR_TYPE;
 import faq.vo.faqBoardbean;
 import member.dao.MemberDAO;
 import member.vo.MemberBean;
@@ -227,8 +228,9 @@ ArrayList<CarBean> CarList = null;
 			cb.setCar_id(rs.getInt("car_id"));
 			cb.setCar_maker(rs.getString("car_maker"));
 			cb.setCar_name(rs.getString("car_name"));
-			cb.setCar_type(rs.getString("car_type"));
-		
+			cb.setCar_type(CAR_TYPE.values()[rs.getInt("car_type")].toString());
+			cb.setCar_price_normal(rs.getInt("car_price_normal"));
+			
 	
 			
 			CarList.add(cb);
@@ -269,8 +271,9 @@ public ArrayList<CarBean> selectCarList(String carsearch1, String carsearch2, in
 			cb.setCar_id(rs.getInt("car_id"));
 			cb.setCar_maker(rs.getString("car_maker"));
 			cb.setCar_name(rs.getString("car_name"));
-			cb.setCar_type(rs.getString("car_type"));
+			cb.setCar_type(CAR_TYPE.values()[rs.getInt("car_type")].toString());
 			cb.setCar_num(rs.getString("car_num"));
+			cb.setCar_price_normal(rs.getInt("car_price_normal"));
 			SelectCarList.add(cb);
 		}
 		
@@ -357,7 +360,28 @@ ArrayList<CarBean> CarList = null;
 		while(rs.next()) {
 			CarBean cb =new CarBean();
 			cb.setCar_id(rs.getInt("count"));
-			cb.setCar_maker(rs.getString("taget"));		
+			switch (rs.getString("taget")) {
+			case "0": cb.setCar_maker("경차");
+				break;
+			case "1": cb.setCar_maker("소형");
+				break;
+			case "2": cb.setCar_maker("중형");
+				break;
+			case "3": cb.setCar_maker("준대형");
+				break;
+			case "4": cb.setCar_maker("대형");
+				break;
+			case "5": cb.setCar_maker("승합");
+				break;
+			case "6": cb.setCar_maker("SUV/RV");
+				break;
+			case "7": cb.setCar_maker("전기차");
+				break;
+			case "8": cb.setCar_maker("수입차");
+				break;
+			default:cb.setCar_maker(rs.getString("taget"));	
+				break;
+			}	
 	
 			
 			CarList.add(cb);
@@ -635,9 +659,21 @@ public JSONArray DetailCarList(int car_id) {
 			jo.put("id", rs.getInt("car_id"));
 			jo.put("num", rs.getInt("car_num"));
 			jo.put("maker", rs.getString("car_maker"));
-			jo.put("type", rs.getString("car_type"));
+			jo.put("type", CAR_TYPE.values()[rs.getInt("car_type")].toString());
+			jo.put("year", rs.getString("car_year"));
+			jo.put("oil", rs.getString("car_oil"));
+			jo.put("auto", rs.getString("car_is_auto"));
+			jo.put("cc", rs.getString("car_cc"));
+			jo.put("trunk", rs.getString("car_trunk"));
+			jo.put("pet", rs.getString("car_is_pet"));
+			jo.put("navi", rs.getString("car_is_navi"));
+			jo.put("smoke", rs.getString("car_is_smoke"));
+			jo.put("color", rs.getString("car_is_smoke"));
+			jo.put("open", rs.getString("car_is_smoke"));
 			jo.put("name", rs.getString("car_name"));
-		
+			
+			
+			
 			DetailCarList.add(jo);
 		}
 	} catch (SQLException e) {
@@ -715,6 +751,286 @@ public ArrayList<BookBean> Monthlist() {
 	
 	
 	return Monthlist;
+}
+
+public ArrayList<MemberBean> selectMemberList(int page, int limit, String parameter) {
+ArrayList<MemberBean> MemberList = null;
+	
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	try {
+		
+		int startRow = (page - 1) * 10;
+		
+		String sql = "SELECT * FROM member where member_id=?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, parameter);
+		rs = pstmt.executeQuery();
+		
+		MemberList = new ArrayList<MemberBean>();
+		
+		while(rs.next()) {
+			MemberBean bb = new MemberBean();
+			bb.setMember_num(rs.getInt("member_num"));
+			bb.setMember_name(rs.getString("member_name"));
+			bb.setMember_id(rs.getString("member_id"));
+			bb.setMember_pass(rs.getString("member_pass"));
+			bb.setMember_email(rs.getString("member_email"));
+			bb.setMember_age(rs.getString("member_age"));
+			bb.setMember_gender(rs.getString("member_gender"));
+			bb.setMember_tel(rs.getString("member_tel"));
+			bb.setMember_adress(rs.getString("member_adress"));
+			bb.setMember_license(rs.getString("member_license"));
+			bb.setMember_smoke(rs.getString("member_smoke"));
+			bb.setMember_pet(rs.getString("member_pet"));
+			bb.setMember_boby(rs.getString("member_baby"));
+			bb.setMember_grade(rs.getString("member_grade"));
+			
+			
+			MemberList.add(bb);
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println("AdminDAO - selectMemberList() 에러!"+e);
+	} finally {
+		
+		close(rs); 
+		close(pstmt);
+	}
+	
+	return MemberList;
+}
+
+public ArrayList<MemberBean> selectMemberSearchList(int page, int limit, String select, String search) {
+	ArrayList<MemberBean> SelectMemberList=null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	try {
+		
+		int startRow = (page - 1) * 10;
+		
+		String sql = "SELECT * FROM member where "+select+" like ? LIMIT ?,?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, "%"+search+"%");
+		pstmt.setInt(2, startRow); // 시작 레코드 번호 전달
+		pstmt.setInt(3, limit); // 게시물 수 전달
+		rs = pstmt.executeQuery();
+		
+		SelectMemberList = new ArrayList<MemberBean>();
+		
+		while(rs.next()) {
+			MemberBean bb =new MemberBean();
+			bb.setMember_num(rs.getInt("member_num"));
+			bb.setMember_name(rs.getString("member_name"));
+			bb.setMember_id(rs.getString("member_id"));
+			bb.setMember_pass(rs.getString("member_pass"));
+			bb.setMember_email(rs.getString("member_email"));
+			bb.setMember_age(rs.getString("member_age"));
+			bb.setMember_gender(rs.getString("member_gender"));
+			bb.setMember_tel(rs.getString("member_tel"));
+			bb.setMember_adress(rs.getString("member_adress"));
+			bb.setMember_license(rs.getString("member_license"));
+			bb.setMember_smoke(rs.getString("member_smoke"));
+			bb.setMember_pet(rs.getString("member_pet"));
+			bb.setMember_boby(rs.getString("member_baby"));
+			bb.setMember_grade(rs.getString("member_grade"));
+			
+			SelectMemberList.add(bb);
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println("AdminDAO - selectCarList() 에러!"+e);
+	} finally {
+		close(rs); 
+		close(pstmt);
+	}
+	
+	
+	
+	
+	return SelectMemberList;
+}
+
+public JSONArray DetailBookList(int book_num) {
+	JSONArray DetailBookList=null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	try {
+		String sql="select *from book where book_num=?";
+		pstmt = con.prepareStatement(sql); 
+		pstmt.setInt(1, book_num);
+		rs=pstmt.executeQuery();
+		DetailBookList=new JSONArray();
+		while(rs.next()) {
+			JSONObject jo=new JSONObject();
+			jo.put("book_num", rs.getInt("book_num"));
+			jo.put("book_id", rs.getString("member_id"));
+			jo.put("book_date", rs.getString("book_date"));
+			jo.put("book_price", rs.getInt("book_price"));
+			jo.put("insurance", rs.getInt("insurance"));
+			jo.put("car_id", rs.getInt("car_id"));
+			jo.put("book_state", rs.getInt("book_state"));
+			jo.put("pickup_date", rs.getString("pickup_date"));
+			jo.put("end_date", rs.getString("end_date"));
+			jo.put("book_state", rs.getString("book_state"));
+			
+			
+			DetailBookList.add(jo);
+		}
+	} catch (SQLException e) {
+	System.out.println("DetailCarList오류"+e);
+		e.printStackTrace();
+	}finally {
+		close(rs);
+		close(pstmt);
+	}
+	
+	
+		return DetailBookList;
+}
+
+public ArrayList<MemberBean> selectMemberSearchListlineup(int page, int limit, String line, String targetup) {
+	ArrayList<MemberBean> MemberList = null;
+	
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	
+	
+	try {
+		
+		int startRow = (page - 1) * 10;
+		
+		String sql = "SELECT * FROM member order by "+targetup+" "+line+" LIMIT ?,?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, startRow); // 시작 레코드 번호 전달
+		pstmt.setInt(2, limit); // 게시물 수 전달
+		rs = pstmt.executeQuery();
+		
+		MemberList = new ArrayList<MemberBean>();
+		
+		while(rs.next()) {
+			MemberBean bb = new MemberBean();
+			bb.setMember_num(rs.getInt("member_num"));
+			bb.setMember_name(rs.getString("member_name"));
+			bb.setMember_id(rs.getString("member_id"));
+			bb.setMember_pass(rs.getString("member_pass"));
+			bb.setMember_email(rs.getString("member_email"));
+			bb.setMember_age(rs.getString("member_age"));
+			bb.setMember_gender(rs.getString("member_gender"));
+			bb.setMember_tel(rs.getString("member_tel"));
+			bb.setMember_adress(rs.getString("member_adress"));
+			bb.setMember_license(rs.getString("member_license"));
+			bb.setMember_smoke(rs.getString("member_smoke"));
+			bb.setMember_pet(rs.getString("member_pet"));
+			bb.setMember_boby(rs.getString("member_baby"));
+			bb.setMember_grade(rs.getString("member_grade"));
+			
+			
+			MemberList.add(bb);
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println("AdminDAO - selectMemberList() 에러!"+e);
+	} finally {
+		
+		close(rs); 
+		close(pstmt);
+	}
+	
+	return MemberList;
+
+}
+
+public ArrayList<CarBean> selectCarListlinep(int page, int limit, String line, String targetup) {
+ArrayList<CarBean> CarList = null;
+	
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	try {
+		
+		int startRow = (page - 1) * 10;
+		
+		String sql = "SELECT * FROM car order by "+targetup+" "+line+" LIMIT ?,?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, startRow); // 시작 레코드 번호 전달
+		pstmt.setInt(2, limit); // 게시물 수 전달
+		rs = pstmt.executeQuery();
+		
+		CarList = new ArrayList<CarBean>();
+		
+		while(rs.next()) {
+			CarBean cb =new CarBean();
+			cb.setCar_num(rs.getString("car_num"));
+			cb.setCar_id(rs.getInt("car_id"));
+			cb.setCar_maker(rs.getString("car_maker"));
+			cb.setCar_name(rs.getString("car_name"));
+			cb.setCar_type(CAR_TYPE.values()[rs.getInt("car_type")].toString());
+	
+			
+			CarList.add(cb);
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println("AdminDAO - selectCarList() 에러!"+e);
+	} finally {
+		
+		close(rs); 
+		close(pstmt);
+	}
+	
+	return CarList;
+}
+
+public MemberBean selectMemberBean(String id) {
+	
+	MemberBean bb = new MemberBean();
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	try {
+		String sql = "SELECT * FROM member where member_id=?";
+	
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		
+		if(rs.next()) {
+			bb.setMember_num(rs.getInt("member_num"));
+			bb.setMember_name(rs.getString("member_name"));
+			bb.setMember_id(rs.getString("member_id"));
+			bb.setMember_pass(rs.getString("member_pass"));
+			bb.setMember_email(rs.getString("member_email"));
+			bb.setMember_age(rs.getString("member_age"));
+			bb.setMember_gender(rs.getString("member_gender"));
+			bb.setMember_tel(rs.getString("member_tel"));
+			bb.setMember_adress(rs.getString("member_adress"));
+			bb.setMember_license(rs.getString("member_license"));
+			bb.setMember_smoke(rs.getString("member_smoke"));
+			bb.setMember_pet(rs.getString("member_pet"));
+			bb.setMember_boby(rs.getString("member_baby"));
+			bb.setMember_grade(rs.getString("member_grade"));
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println("AdminDAO - selectMemberList() 에러!"+e);
+	} finally {
+		
+		close(rs); 
+		close(pstmt);
+	}
+	
+	return bb;
+	
 }
 
 

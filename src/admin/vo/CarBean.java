@@ -2,10 +2,17 @@ package admin.vo;
 
 public class CarBean {
 private String car_maker,car_type,car_name,car_num;
-private int car_id;
+
+private int car_id,car_price_normal;
 
 
 
+public int getCar_price_normal() {
+	return car_price_normal;
+}
+public void setCar_price_normal(int car_price_normal) {
+	this.car_price_normal = car_price_normal;
+}
 public String getCar_maker() {
 	return car_maker;
 }

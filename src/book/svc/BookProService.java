@@ -47,4 +47,27 @@ public class BookProService {
 		return isWriteSuccess;
 	}
 
+
+
+
+	public BookBean selectBookNum(BookBean bn) {
+
+		BookBean bookList = null;
+
+		// 2. JdbcUtil 객체로부터 Connection Pool 에 저장된 Connection 객체 가져오기(공통)
+		Connection con = JdbcUtil.getConnection();
+
+		// 3. BoardDAO 클래스로부터 BoardDAO 객체 가져오기(공통)
+		BookDAO bookDAO = BookDAO.getInstance();
+
+		// 4. BoardDAO 객체의 setConnection() 메서드를 호출하여 Connection 객체를 전달(공통)
+		bookDAO.setConnection(con);
+
+		bookList = bookDAO.selectBookNum(bn);
+
+		JdbcUtil.close(con);
+
+		return bookList;
+	}
 }
+

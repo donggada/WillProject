@@ -12,11 +12,14 @@ import javax.xml.ws.ResponseWrapper;
 
 import book.action.Action;
 import book.action.BookListAction;
+import book.action.BookPro3Action;
 import book.action.BookProAction;
 import book.action.CarListAction;
+import book.action.CarListCountAction;
 import book.action.ChatBotAction;
 import book.action.CoronaDataParsingAction;
 import book.vo.ActionForward;
+import review.action.ReviewListAction;
 
 @WebServlet("*.bk")
 
@@ -60,6 +63,16 @@ public class BookFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+		} else if (command.equals("/BookPro3.bk")) {
+			action = new BookPro3Action();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 
 		} else if (command.equals("/BookList.bk")) {
 
@@ -80,7 +93,12 @@ public class BookFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if (command.equals("/coronaData.bk")) {
+		} 
+		else if(command.equals("/RealChat.bk")) {
+			forward = new ActionForward();
+			forward.setPath("chat.jsp");
+		} 
+		else if (command.equals("/coronaData.bk")) {
 			action = new CoronaDataParsingAction();
 			try {
 				forward = action.execute(request, response);
@@ -88,6 +106,15 @@ public class BookFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} // coronaData.bk
+		}else if(command.equals("/carIntro.bk")) { //리뷰글 목록
+//			forward = new ActionForward();
+//			forward.setPath("/carIntro/carIntro.jsp");
+			action = new CarListCountAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		if (forward != null) {

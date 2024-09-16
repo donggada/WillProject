@@ -12,22 +12,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import admin.action.AdminPageAction;
 import admin.action.CarListAction;
+import admin.action.DetailBooktListAction;
 import admin.action.DetailCarListAction;
 import admin.action.GraphProAction;
+import admin.action.InsertCarAction;
 import admin.action.MemberDeleteProAction;
 import admin.action.MemberListAction;
 import admin.action.MemberModifyAction;
 import admin.action.MemberModifyProAction;
+import admin.action.MemberSearchListAction;
 import admin.action.PopUpPageOffAction;
 import admin.action.PopUpPageOnAction;
+import admin.action.PopupPageProAction;
 import admin.action.PopupPageUploadAction;
 import admin.action.QnABoardAction;
 import admin.action.ReviewListAction;
 import admin.action.SalesChartAction;
 import admin.action.SelectCarListAction;
 import admin.action.SelectMemberListAction;
+import admin.action.SellModifyAction;
+import admin.action.SellModifyProAction;
+import admin.action.faqListAction;
 import admin.action.reviewDeleteProAction;
 import admin.action.sellingListAction;
+import admin.action.sellingListSearchAction;
+import admin.action.sellingListateAction;
 import member.action.Action;
 
 import member.vo.ActionForward;
@@ -38,7 +47,7 @@ public class adminFrontController extends HttpServlet {
 	
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("adminFrontController");
+//		System.out.println("adminFrontController");
 		request.setCharacterEncoding("UTF-8");
 		String command=request.getServletPath();
 		System.out.println(command);
@@ -139,6 +148,24 @@ public class adminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/Pop/PopupPagePro.ad")) {
+			action=new PopupPageProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/Admin/insertCar.ad")) {
+			action=new InsertCarAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/insertCarFrom.ad")) {
+			forward=new ActionForward();
+			forward.setPath("/Admin/InsertCar.jsp");
 		}
 		
 		
@@ -212,7 +239,91 @@ public class adminFrontController extends HttpServlet {
 		
 		}
 		
+		
+
+		else if(command.equals("/mmlistSearch.ad")) { //회원조건검색
+			action = new MemberSearchListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+		
 	
+		
+		
+		else if(command.equals("/sellingSearch.ad")) { //매출조건검색
+			action = new sellingListSearchAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+		
+
+		
+		else if(command.equals("/sellinglist2.ad")) { //매출상태조건검색
+			action = new sellingListateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+		else if(command.equals("/sellmodify.ad")) { //매출상태수정
+			action = new SellModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+		
+		else if(command.equals("/sellmodifypro.ad")) { //매출상태수정2
+			action = new SellModifyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+		else if(command.equals("/Admin/DetailBooktInfo.ad")) { //매출상세
+			action = new DetailBooktListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+	
+		
+		
+		
+//		else if(command.equals("/faqadminlist.ad")) { //faq리스트
+//			action = new faqListAction();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		
+//		}
+		
+		
 		
 		if(forward!=null) {
 			

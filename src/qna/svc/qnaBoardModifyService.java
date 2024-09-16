@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 
 import qna.dao.qnaBoardDAO;
 import qna.vo.qnaBoardbean;
-import sun.security.jca.GetInstance;
 
 
 public class qnaBoardModifyService {

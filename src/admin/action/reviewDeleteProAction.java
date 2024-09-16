@@ -14,6 +14,7 @@ import faq.vo.faqBoardbean;
 import member.action.Action;
 import member.vo.ActionForward;
 import review.svc.ReviewDeleteProService;
+import review.vo.ReviewBean;
 
 
 
@@ -23,14 +24,14 @@ public class reviewDeleteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward=null;
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session=request.getSession();
-		String id = (String)session.getAttribute("id"); 
+//		HttpSession session=request.getSession();
+//		String id = (String)session.getAttribute("id"); 
 		String page=request.getParameter("page");
 		
 		String[] num =request.getParameterValues("check");
 		int[] num2 = Arrays.stream(num).mapToInt(Integer::parseInt).toArray();
 		
-		
+		ReviewBean reviewbean=new ReviewBean();
 		ReviewDeleteProService reviewDeleteProService = new ReviewDeleteProService();
 		int result=-1;
 		
@@ -40,7 +41,8 @@ public class reviewDeleteProAction implements Action {
 		}
 		
 		for(int val:num2){
-			reviewDeleteProService.removeArticle(val);
+			reviewbean.setReview_num(val);
+			reviewDeleteProService.removeArticleadmin(reviewbean);
 			result=1;
 		}
 	
@@ -75,7 +77,7 @@ public class reviewDeleteProAction implements Action {
 		}else {
 			forward=new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("reviewdelete.ad?"+"&page="+page);
+			forward.setPath("ReviewList.ad?"+"&page="+page);
 		
 		}
 		

@@ -1,44 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%String id = (String)session.getAttribute("id"); 
-     	if(!(id.equals("admin"))){
-		%>
-	<script type="text/javascript">
-	  alert("admin만 작성가능합니다.")
-	window.close();
-	</script>
-		
-	<% }%>
      
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Admin</title>
+        <link href="Admin/css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+     <link href="QnA/QnA11/bootstrap.css" rel="stylesheet">
+ <link href="QnA/QnA11/bootstrap.min.css" rel="stylesheet">
+   
+   
 
 </head>
 <body>
+  <jsp:include page="/inc/topleft.jsp"></jsp:include>
+  
+  <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">FAQ</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">ADMIN MAIN</a></li>
+                            <li class="breadcrumb-item active">Member</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                수정할거 - 
+                                <a target="_blank" href="#">official DataTables documentation</a>
+                                .
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                               FAQ list
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
 
-  <link href="QnA/QnA11/bootstrap.css" rel="stylesheet">
- <link href="QnA/QnA11/bootstrap.min.css" rel="stylesheet">
- 
 
+	<section id="listForm">
 
 <form action="faqwritepro.fbo" enctype="multipart/form-data" method="post" name="boardform">
  
  
- 
-<div class="bs-docs-section">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="page-header">
-              <h1 id="forms">FAQ작성</h1>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="bs-component">
  
                 <fieldset>
 

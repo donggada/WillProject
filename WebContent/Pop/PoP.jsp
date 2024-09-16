@@ -8,9 +8,12 @@
 <script src="../js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
- $.getJSON('jsonpage.jsp',function(rdata){
+ $.getJSON('PopupPagePro.ad',function(rdata){
 	 $.each(rdata,function(index,item){
+		 if(item.idx=='1'){window.close();}
+		 else{
 		 $('body').append('<img alt="300" src="../EventUploadfile/'+item.image+'" width="400" height="400"><br>');
+		 }
 	 });
  });
 	

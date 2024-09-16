@@ -37,6 +37,16 @@
         <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+      <link href="style.css" rel="stylesheet">
+  <link href="QnA/QnA11/bootstrap.css" rel="stylesheet">
+ <link href="QnA/QnA11/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+ 
+    
 </head>
 
 <body class="loader-active">
@@ -70,7 +80,8 @@
                                 <h2>회원가입</h2>
                                 </div><br>
                                 <div class="pickup-location book-item">
-                                    <h4>아이디</h4>
+                            
+                                    <h5>아이디</h5>
                                     <input type="text" name="id" id="id" required="required" 
 											placeholder="4~12자리 영문,숫자 조합">
                                     <input type="button" value="중복체크" id="btn">	
@@ -78,65 +89,77 @@
                                     
                                 </div>
                                  <div class="pickup-location book-item">
-                                    <h4>비밀번호</h4>
+                                    <h5>비밀번호</h5>
                                     <input type="password" name="pass" required="required" 
 											placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)">
 									<span id="checkPasswdResult"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span>
                                     
                                 </div>
                                  <div class="pickup-location book-item">
-                                    <h4>이름</h4>
+                                    <h5>이름</h5>
                                     <input type="text" name="name" required="required" />
                                     
                                 </div>
                                  <div class="pickup-location book-item">
-                                    <h4>나이</h4>
+                                    <h5>나이</h5>
                                     <input type="text" name="age" required="required" />
                                     
                                 </div>
                                  <div class="pickup-location book-item">
-                                    <h4>성별</h4>
+                                    <h5>성별</h5>
                                    <select name="gender" required="required"><option>남</option><option>여</option></select>
                                     
                                 </div>
                                  <div class="pickup-location book-item">
-                                    <h4>전화번호</h4>
+                                    <h5>전화번호</h5>
                                     <input type="text" name="tel" required="required" />
                                     
                                 </div>
                                  <div class="pickup-location book-item">
-                                    <h4>주소</h4>
+                                    <h5>주소</h5>
                                     <input type="text" name="adress" required="required">
 						   		    <input type="button" value="주소검색" onclick="juso()">
                                     
                                 </div>
                                 <div class="pickup-location book-item">
-                                    <h4>이메일</h4>
-									<input type="text" name="email" id="email" required="required">
-										@<select name="email1" id="email1" required="required">
+                                    <h5>이메일</h5>
+									<input type="text" name="email" id="email" required="required" style="width: 100px;">
+										@<select name="email1" id="email1" required="required" style="width: 100px;">
 										<option>naver.com</option><option>google.com</option><option>hanmail.net</option></select>
-                                    <input type="button" value="이메일 인증하기" id="emalicheck">
+                                    <input type="button" value="이메일 인증하기" id="emalicheck" style="width: 122px; font-size: 12px;">
                                     <span id="checkemailResult"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span>
                                     <input type="text"  id="tchecknum">
                                     <input type="button" value="확인" id="bchecknum">
                                     <span id="checkResult1"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span>
                                 </div>
                                  <div class="pickup-location book-item">
-                                    <h4>면허증</h4>
+                                    <h5>면허증</h5>
                                     <input type="text" name="license"  required="required" />
                                     
                                 </div>
-                                 <div class="pickup-location book-item">
-                                    <h4>선택사항</h4>
-                                    흡연여부<input type="checkbox" name="smoke" value="흡연">
-									애완동물<input type="checkbox" name="pet" value="동물">
-									아기(카시트)<input type="checkbox" name="baby" value="아기">
+<!--                                  <div class="pickup-location book-item"> -->
+                                    <h5>선택사항</h5>
+
                                     
+                                        <div class="form-group">
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="smoke" value="흡연">
+      <label class="custom-control-label" for="customCheck1">흡연여부</label>
+    </div>
+      <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck2" name="pet" value="동물">
+      <label class="custom-control-label" for="customCheck2">애완동물</label>
+    </div>
+      <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck3" name="baby" value="아기">
+      <label class="custom-control-label" for="customCheck3">카시트</label>
+    </div>
+    
                                 </div>
                               
-						                                <div class="book-button text-center">
-						                <input type="submit" value="회원가입" id="insertbtn">					                               
-                                    <button class="book-now-btn" >가입</button>
+						                 <div class="book-button text-center">
+						                <input type="submit" value="회원가입" id="insertbtn" class="book-now-btn">					                               
+               
                                 </div>
                             </form>
                         </div>
@@ -344,7 +367,7 @@ jQuery(document).ready(function () {
 	
 	$('#insertbtn').click(function(){
 		if($('#checkIdResult').html().trim()=="아이디 사용가능"){
-				if($('#checkPasswdResult'.html().trim()=="적합한 패스워드"){
+				if($('#checkPasswdResult').html().trim()=="적합한 패스워드"){
 					if($('#checkResult1').html().trim()=="인증되었습니다."){
 		
 						}else{

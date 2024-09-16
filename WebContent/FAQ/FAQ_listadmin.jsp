@@ -6,7 +6,7 @@
     
     <%
 	// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-	String id = (String)session.getAttribute("id");
+	String id = (String)session.getAttribute("Member_id");
 	ArrayList<faqBoardbean> articleList = (ArrayList<faqBoardbean>)request.getAttribute("articlelist");
 	pageinfo pageInfo = (pageinfo)request.getAttribute("pageinfo");
 	
@@ -41,7 +41,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
+  width: 800px;
   height: 300px;
   background-color: white;
   overflow: auto;

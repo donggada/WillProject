@@ -1,4 +1,6 @@
 
+<%@page import="java.util.HashMap"%>
+<%@page import="book.vo.BookBean"%>
 <%@page import="qna.vo.pageinfo"%>
 <%@page import="member.vo.MemberBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,7 +10,10 @@
     
         <%
 	ArrayList<MemberBean> articleList = (ArrayList<MemberBean>)request.getAttribute("articlelist");
-	pageinfo pageiInfo = (pageinfo)request.getAttribute("pageInfo");
+  //  ArrayList<BookBean> booklist2 = (ArrayList<BookBean>)request.getAttribute("booklist2");
+	HashMap<String, BookBean> book=(HashMap<String, BookBean>)request.getAttribute("book");
+  
+  pageinfo pageiInfo = (pageinfo)request.getAttribute("pageInfo");
 	
 
 	int listCount = pageiInfo.getListcount();
@@ -18,6 +23,10 @@
 	int maxPage = pageiInfo.getMaxpage();
 	
 %>  
+
+<%
+ int lineup = ((Integer)request.getAttribute("lineup")).intValue();
+%>
 <!DOCTYPE html>
 <html>
  <head>
@@ -50,7 +59,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 -/ 정렬 / 찾기 / 횟수  금액 
+                                -
                                 <a target="_blank" href="#">official DataTables documentation</a>
                                 .
                             </div>
@@ -70,19 +79,88 @@
                                             <tr>
                                             
                                             
-             <th>IDX </th>
-    	 		<th>ID</th>
-     		<th>PASS</th>
-     		<th style="white-space: nowrap;">NAME <img src="img/2.png" style="width: 12px;"></th>
-     		<th style="white-space: nowrap;">AGE<img src="img/2.png" style="width: 12px;"></th>
-     		<th>F/M</th>
+             <th style="white-space: nowrap;">
+             IDX
+           
+           <%if(lineup==1){ %>
+            <a href="MemberList.ad?target=member_num&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="MemberList.ad?target=member_num&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+             
+             
+              </th>
+    	 		 <th style="white-space: nowrap;">
+    	 		ID
+    	 	<%if(lineup==1){ %>
+            <a href="MemberList.ad?target=member_id&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="MemberList.ad?target=member_id&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+    	 		
+    	 		
+    	 		</th>
+     		 <th style="white-space: nowrap;">
+     		 PASS</th>
+     		<th style="white-space: nowrap;">NAME 
+     		
+     		<%if(lineup==1){ %>
+     		<a href="MemberList.ad?target=member_name&lineup=0">
+     		<img src="img/2.png" style="width: 12px;">
+     		</a>
+     		<%}else{ %>
+     		<a href="MemberList.ad?target=member_name&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+     		<%} %>
+     		
+     		
+     		</th>
+     		<th style="white-space: nowrap;">AGE
+     		
+            <%if(lineup==1){ %>
+            <a href="MemberList.ad?target=member_age&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="MemberList.ad?target=member_age&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+     		
+     		 <th style="white-space: nowrap;">
+     		 F/M
+     		
+     		 <%if(lineup==1){ %>
+            <a href="MemberList.ad?target=member_gender&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="MemberList.ad?target=member_gender&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+     		
+     		
+     		
+     		</th>
      		<th>TEL</th>
      		<th>ADRESS</th>
      		<th>E-MAIL</th>		
      		<th>LICENSE</th>
      		<th>OPTION</th>
-     		<th style="white-space: nowrap;">횟수 <img src="img/2.png" style="width: 12px;"></th>	
-     		<th style="white-space: nowrap;">금액 <img src="img/2.png" style="width: 12px;"></th>	
+     		<th style="white-space: nowrap;">횟수 
+     		<img src="img/2.png" style="width: 12px;"></th>	
+     		<th style="white-space: nowrap;">금액 
+     		<img src="img/2.png" style="width: 12px;"></th>	
      		<th style="white-space: nowrap;">
      		
   
@@ -110,60 +188,60 @@
                                         </thead>
                                         <tfoot>
           <%if(articleList != null & listCount > 0) {%>
-			<%for(int i = 0; i < articleList.size(); i++) {%>
-			
+			<%for(MemberBean mb: articleList) {%>
+
 				<tr>
 					<th scope="row">
-					<%=articleList.get(i).getMember_num()%>	
+					<%=mb.getMember_num()%>	
 					</th>
 					
 				
 			<td>
-			<%=articleList.get(i).getMember_id() %>
+			<%=mb.getMember_id() %>
 			</td>
 					
 				<td>
-			<%=articleList.get(i).getMember_pass() %>
+			<%=mb.getMember_pass() %>
 			</td>
 			<td>
-			<%=articleList.get(i).getMember_name() %>
+			<%=mb.getMember_name() %>
 			</td>
 			<td>
-			<%=articleList.get(i).getMember_age() %>
+			<%=mb.getMember_age() %>
 			</td>
 			<td>
-			<%=articleList.get(i).getMember_gender() %>
+			<%=mb.getMember_gender() %>
 			</td>
 			<td>
-			<%=articleList.get(i).getMember_tel() %>
+			<%=mb.getMember_tel() %>
 			</td>
 			<td>
-			<%=articleList.get(i).getMember_adress() %>
+			<%=mb.getMember_adress() %>
 			</td>
 			<td>
-			<%=articleList.get(i).getMember_email() %>
+			<%=mb.getMember_email() %>
 			</td>
 		<td>
-			<%=articleList.get(i).getMember_license() %>
+			<%=mb.getMember_license() %>
 			</td>
 			
 			<td>
 
-			<%if(articleList.get(i).getMember_smoke()!=null){ %>
+			<%if(mb.getMember_smoke()!=null){ %>
 			S <input type="checkbox" name="check" checked="checked">
-			<%}else if(articleList.get(i).getMember_smoke()==null){ %>
+			<%}else if(mb.getMember_smoke()==null){ %>
 			S <input type="checkbox" name="check">
 				<%} %>
 			
-			<%if(articleList.get(i).getMember_pet()!=null){ %>
+			<%if(mb.getMember_pet()!=null){ %>
 			P <input type="checkbox" name="check" checked="checked">
-			<%}else if(articleList.get(i).getMember_pet()==null){ %>
+			<%}else if(mb.getMember_pet()==null){ %>
 			P <input type="checkbox" name="check" >
 				<%} %>
 	
-				<%if(articleList.get(i).getMember_boby()!=null){ %>
+				<%if(mb.getMember_boby()!=null){ %>
 			B <input type="checkbox" name="check" checked="checked">
-			<%}else if(articleList.get(i).getMember_boby()==null){ %>
+			<%}else if(mb.getMember_boby()==null){ %>
 			B <input type="checkbox" name="check">
 			<%} %>
 		
@@ -171,15 +249,26 @@
 			
 			
 			<td>
+	
+			<%if(book.containsKey(mb.getMember_id())){ %>
+			<%=book.get(mb.getMember_id()).getCount() %>
+			<%} else{%>
+			이용내역 없음
+			<%} %>
+			
 			
 			</td>
 			
 			<td>
-			
+			<%if(book.containsKey(mb.getMember_id())){ %>
+			<%=book.get(mb.getMember_id()).getSum()%>
+		    <%} else{%>
+				이용내역 없음
+			<%} %>
 			</td>
 			
 			<td>
-			<%=articleList.get(i).getMember_grade() %>
+			<%=mb.getMember_grade() %>
 			</td>
 					
 					
@@ -187,9 +276,9 @@
 					
 					
 					<td style="white-space: nowrap;">
-					<a href="mmmodify.ad?member_id=<%=articleList.get(i).getMember_id()%>&page?=<%=nowPage%>"><span class="badge badge-pill badge-warning">수정</span></a>
+					<a href="mmmodify.ad?member_id=<%=mb.getMember_id()%>&page?=<%=nowPage%>"><span class="badge badge-pill badge-warning">수정</span></a>
 					
-					<a onclick="removeCheck(<%=articleList.get(i).getMember_num()%>)">
+					<a onclick="removeCheck(<%=mb.getMember_num()%>)">
 					<span class="badge badge-pill badge-danger">삭제</span></a>
 					<input type="hidden" name="page" value="<%=nowPage%>">
 			
@@ -202,13 +291,18 @@
                                     </table>
                                     
         <div style="float: right;">
-	   <form action="MemberSelectList.ad" class="form-inline my-2 my-lg-0">
-       <select class="custom-select" style="width: 100px; margin-right: 5px;"name="search1">
+	   <form action="mmlistSearch.ad" class="form-inline my-2 my-lg-0">
+       <select class="custom-select" id="select" name="select" style="width: 100px; margin-right: 5px;">
       <option selected="">Search</option>
-      <option value="1">ID</option>
-      <option value="2">NAME</option>
+       <option value="member_num">IDX</option>
+      <option value="member_id">ID</option>
+      <option value="member_name">NAME</option>
+      <option value="member_tel">TEL</option>
+       <option value="member_email">EMAIL</option>
+       <option value="member_age">AGE</option>
+     
     </select>
-      <input name="search2" id="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
+      <input name="search" id="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
     </div>
@@ -224,7 +318,7 @@
     </li>
 	<%} else {%>
 	   <li class="page-item disabled">
-			<a href="MemberList.ad?page=<%=nowPage - 1%>" class="page-link">&laquo;</a>&nbsp;
+			<a href="faqadminlist.fbo?page=<%=nowPage - 1%>" class="page-link">&laquo;</a>&nbsp;
 			</li>
 	<%} %>
 	
@@ -234,7 +328,7 @@
       <a class="page-link" href="#"><%=i %></a>
 		<%} else {%>
 		 <li class="page-item active">
-				<a href="MemberList.ad?page=<%=i %>" class="page-link"><%=i %></a>&nbsp;
+				<a href="faqadminlist.fbo?page=<%=i %>" class="page-link"><%=i %></a>&nbsp;
 		<%} %>
 	<%} %>
 	
@@ -243,7 +337,7 @@
       <a class="page-link" href="#">&raquo;</a>
 	<%} else { %>
 	<li class="page-item">
-			<a href="MemberList.ad?page=<%=nowPage + 1%>" class="page-link">&raquo;</a>
+			<a href="faqadminlist.fbo?page=<%=nowPage + 1%>" class="page-link">&raquo;</a>
 	<%} %>
 	
 	  </li>

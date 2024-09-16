@@ -12,7 +12,6 @@ import qna.svc.qnaBoardListservice;
 import qna.vo.actionForward;
 import qna.vo.pageinfo;
 import qna.vo.qnaBoardbean;
-import sun.security.krb5.internal.PAForUserEnc;
 
 public class qnaBoardListaction implements action {
 
@@ -22,7 +21,7 @@ public class qnaBoardListaction implements action {
 		
 		
 		int page=1;
-		int limit=10;
+		int limit=4;
 
 		
 		if(request.getParameter("page")!=null) {
@@ -30,8 +29,8 @@ public class qnaBoardListaction implements action {
 		}
 		
 		HttpSession session=request.getSession();
-		String id = (String)session.getAttribute("id"); 
-		System.out.println(id);
+		String id = (String)session.getAttribute("Member_id"); 
+//		System.out.println(id);
 		
 		qnaBoardListservice boardlist=new qnaBoardListservice(); 
 		int listcount=0;

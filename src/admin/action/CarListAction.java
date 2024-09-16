@@ -28,14 +28,39 @@ public class CarListAction implements Action {
 		}
 		
 		
+		
+		//정렬기준 추가
+				int lineup=0;
+				String line=null;
+				if(request.getParameter("lineup")!=null) {
+					lineup = Integer.parseInt(request.getParameter("lineup"));	
+				}
+				
+				if(lineup==0) {
+					line="desc";
+				}else {
+					line="asc";
+				}
+				//정렬항목 추가
+				String targetup=null;
+				if(request.getParameter("target")!=null) {
+					targetup=request.getParameter("target");	
+				}
+			
+		
+		
+		
 		CarListService CarListService = new CarListService();
 		
 		
 		int listCount = CarListService.getListCount(taget,table);
+		ArrayList<CarBean> CarList =null;
 		
-		
-		ArrayList<CarBean> CarList = CarListService.getArticleList(page, limit);
-		 
+		if(targetup==null) {
+			CarList = CarListService.getArticleList(page, limit);
+		}else {
+			CarList = CarListService.getArticleListlineup(page, limit, line, targetup);
+		}
 		
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);
@@ -57,7 +82,7 @@ public class CarListAction implements Action {
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articlelist", CarList);
-		
+		request.setAttribute("lineup", lineup);//정렬상태 전달
 		
 		forward = new ActionForward();
 		forward.setPath("/Admin/AdminCarList.jsp");

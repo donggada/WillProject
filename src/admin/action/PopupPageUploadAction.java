@@ -22,13 +22,15 @@ public class PopupPageUploadAction implements Action {
 		boolean isUpload=false;
 		System.out.println("PopupPageUploadAction");
 		String PopUPloadfile= request.getParameter("image");
-		System.out.println(PopUPloadfile);
+		
 		
 		String realFolder = "";
 		String saveFolder = "/EventUploadfile";
-		int fileSize = 5*1024*1024;
+		int fileSize = 1024*1024*1024;
+		// realFolder = request.getRealPath("/EventUploadfile");
 		ServletContext context = request.getServletContext();
 		realFolder = context.getRealPath(saveFolder);
+
 		
 		MultipartRequest multi = new MultipartRequest(request, realFolder,fileSize, "UTF-8", new DefaultFileRenamePolicy());
 		ReviewBean reviewBean = new ReviewBean();

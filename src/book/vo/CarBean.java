@@ -100,7 +100,7 @@ public class CarBean {
 	
 	private int car_id;
 	private boolean car_is_rent;
-	private String car_maker;
+	private String car_maker,car_num;
 	private String car_name;
 	private CAR_TYPE car_type; // 타입을 int값으로 설정해서 정해놔야 함. Enum 값으로 설정해두었음.
 	private int car_people_max;
@@ -110,6 +110,7 @@ public class CarBean {
 	private boolean car_is_auto;
 	private LICENSE_TYPE car_license_type;
 	private int car_license_year;
+
 	private int car_need_year;
 	private int car_cc;
 	private int car_price_normal;
@@ -267,6 +268,11 @@ public class CarBean {
 	public void setCar_is_smoke(boolean car_is_smoke) {
 		this.car_is_smoke = car_is_smoke;
 	}
-	
+	public String getCar_num() {
+		return car_num;
+	}
+	public void setCar_num(String car_num) {
+		this.car_num = car_num;
+	}
 	
 }

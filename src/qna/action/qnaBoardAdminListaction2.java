@@ -12,7 +12,6 @@ import qna.svc.qnaBoardListservice;
 import qna.vo.actionForward;
 import qna.vo.pageinfo;
 import qna.vo.qnaBoardbean;
-import sun.security.krb5.internal.PAForUserEnc;
 
 public class qnaBoardAdminListaction2 implements action {
 
@@ -54,13 +53,13 @@ public class qnaBoardAdminListaction2 implements action {
 		
 
 		
-		request.setAttribute("pageinfo", pageinfo);
+		request.setAttribute("pageInfo", pageinfo);
 		request.setAttribute("articlelist", articlelist);
 
 		
 		forward= new actionForward();
 		forward.setRedirect(false);
-		forward.setPath("/QnA/qna_list.jsp");
+		forward.setPath("/Admin/qna_list.jsp");
 		
 		return forward;
 	}

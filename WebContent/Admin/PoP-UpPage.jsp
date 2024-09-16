@@ -41,7 +41,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 - 
+                            - 
                             </div>
                         </div>
                         <div class="card mb-4">

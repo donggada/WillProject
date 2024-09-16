@@ -18,7 +18,7 @@ public class ReviewListAction implements Action {
 		ActionForward forward = null;
 		
 		int page = 1;
-		int limit = 10;
+		int limit = 3;
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));

@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import faq.svc.faqBoardListservice;
 import faq.vo.actionForward;
 import faq.vo.faqBoardbean;
 import faq.vo.pageinfo;
-import sun.security.krb5.internal.PAForUserEnc;
 
 public class faqBoardadminListaction implements action {
 
@@ -56,7 +54,7 @@ public class faqBoardadminListaction implements action {
 		
 		forward= new actionForward();
 		forward.setRedirect(false); // 기본값이므로 생략이 가능 
-		forward.setPath("/FAQ/FAQ_listadmin.jsp");
+		forward.setPath("/Admin/FAQ_listadmin.jsp");
 		
 		return forward;
 	}

@@ -22,7 +22,7 @@ public class qnaBoardDeleteProAction implements action {
 		String page=request.getParameter("page");
 		String boardpass=request.getParameter("qnaBoard_pass");
 		HttpSession session=request.getSession();
-		String id = (String)session.getAttribute("id"); 
+		String id = (String)session.getAttribute("Member_id"); 
 		
 		
 		

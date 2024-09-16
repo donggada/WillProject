@@ -16,7 +16,7 @@ public class QnABoardAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("QnABoardAction");
+//		System.out.println("QnABoardAction");
 		ActionForward forward=null;
 		
 		int page=1;

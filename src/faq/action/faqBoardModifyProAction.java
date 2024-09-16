@@ -24,11 +24,11 @@ public class faqBoardModifyProAction implements action {
 		int faqboard_num=Integer.parseInt(request.getParameter("faqBoard_num"));
 		String page=request.getParameter("page");
 		
-		System.out.println(faqboard_num);
-		System.out.println(page);
-		System.out.println(request.getParameter("faqBoard_content"));
-		System.out.println(request.getParameter("faqBoard_subject"));
-		System.out.println(request.getParameter("tag"));
+//		System.out.println(faqboard_num);
+//		System.out.println(page);
+//		System.out.println(request.getParameter("faqBoard_content"));
+//		System.out.println(request.getParameter("faqBoard_subject"));
+//		System.out.println(request.getParameter("tag"));
 
 		
 		
@@ -42,7 +42,7 @@ public class faqBoardModifyProAction implements action {
 		faqBoardModifyService qnaBoardModifyService= new faqBoardModifyService();
 		
 		boolean iswritesucce= qnaBoardModifyService.regisartiset(qnaboardbean);
-		System.out.println(iswritesucce+"수정결과");
+//		System.out.println(iswritesucce+"수정결과");
 		
 		
 

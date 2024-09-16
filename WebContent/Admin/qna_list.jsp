@@ -52,7 +52,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 - 정렬/답변  금액 
+                                -
                                 <a target="_blank" href="#">official DataTables documentation</a>
                                 .
                             </div>
@@ -81,7 +81,7 @@
 
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="margin: -10px;">구분</a>
     <div class="dropdown-menu" style="">
-      <a class="dropdown-item" href="qnaBoardlist.bo">전체</a>
+      <a class="dropdown-item" href="QnABoard.ad">전체</a>
       <a class="dropdown-item" href="qnaadminlist2.bo">답변완료</a>
       <a class="dropdown-item" href="qnaadminlist.bo">미답변</a>
     </div>      	
@@ -105,7 +105,7 @@
 			%><b><%=articleList.get(i).getQnaBaord_tag() %></b><%}{}%>
 			</td>
 					<td>
-					<a href="qnaboardcheck.bo?qnaBoard_num=<%=articleList.get(i).getQnaBoard_num()%>&page=<%=nowPage%>">
+					<a href="qnaBoardDetail.bo?qnaBoard_num=<%=articleList.get(i).getQnaBoard_num()%>&page=<%=nowPage%>">
 							<%=articleList.get(i).getQnaBoard_subject() %>
 						</a>
 					</td>

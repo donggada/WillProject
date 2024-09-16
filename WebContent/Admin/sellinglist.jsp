@@ -22,6 +22,17 @@
 // 	int maxPage = pageiInfo.getMaxpage();
 	
 %>  
+
+<%int fs = ((Integer)request.getAttribute("fs")).intValue();
+				//미수 금액
+				int sum = ((Integer)request.getAttribute("sum")).intValue();
+				//이번달 총액
+				%>
+				
+<%
+ int lineup = ((Integer)request.getAttribute("lineup")).intValue();
+// String state=(String)request.getAttribute("state");
+%>
 <!DOCTYPE html>
 <html>
  <head>
@@ -66,6 +77,16 @@
         
     }
  
+
+var popupX = (window.screen.width/2)-(500/2);
+
+var popupY= (window.screen.height/2)-(500/2);
+
+function DetailBookInfo(book_num)
+{
+
+   window.open('Admin/DetailBookInfo.jsp?book_num='+book_num, 'DetailBookInfo', 'status=no, height=305, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+}
 </script>
    
    
@@ -79,14 +100,27 @@
                     <div class="container-fluid">
                         <h1 class="mt-4">Selling List</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="main.ad">ADMIN MAIN</a></li>
+                            <li class="breadcrumb-item"><a href="adminpage.ad">ADMIN MAIN</a></li>
                             <li class="breadcrumb-item active">Car Selling List</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                수정할거 -  특정조건 검색 / 상태 null 미결제로 구분  / 영수증
-                                <a target="_blank" href="#">official DataTables documentation</a>
-                                .
+                              - <br>
+                 <%if((request.getAttribute("year")!=null)){ %>
+				<b><%=request.getAttribute("year") %> 년
+               <%=request.getAttribute("month") %> 월 목표 실적 도달율　　 </b><a target="_blank" href="#">목표금액설정 </a>
+                 <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%=(sum*100)/100000%>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+               <%}else{ %>
+          
+                 매출월을 선택해주세요.　　 <a target="_blank" href="#">목표금액설정 </a>
+                             <br>
+                                <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+               <%} %>
+                                
                             </div>
                         </div>
                         <div class="card mb-4">
@@ -101,22 +135,21 @@
                          </form>       
                              
                             </div>
-	   <form action="qnaSearchPro.fbo" class="form-inline my-2 my-lg-0">
+	   <form action="sellingSearch.ad" class="form-inline my-2 my-lg-0">
                             <div class="card-body">
                                 <div class="table-responsive">
                                 
                                      <div style="float: right; padding-bottom: 10px;">
-       <select class="custom-select" style="width: 100px; margin-right: 5px;">
+       <select class="custom-select" name="select" id="select" style="width: 100px; margin-right: 5px;">
       <option selected="">Search</option>
-      <option value="1">IDX</option>
-      <option value="2">NAME</option>
-      <option value="3">Car_N</option>
-       <option value="4">Satus</option>
+      <option value="book_num">NO.</option>
+      <option value="member_id">ID</option>
+      <option value="car_id">Car_id</option>
     </select>
       <input name="search" id="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    
     </form>
+    
      </div>
      
  	<%if(bookList != null) {%>
@@ -162,12 +195,8 @@
 				int score2 = ((Integer)request.getAttribute("c2")).intValue();
 				%>
 				
-				<%int fs = ((Integer)request.getAttribute("fs")).intValue();
-				//미수 금액
-				int sum = ((Integer)request.getAttribute("sum")).intValue();
-				//이번달 총액
-				%>
-				<%=score2 %> 
+				
+				
 				
 				<%if((request.getAttribute("year")!=null&&
 				request.getAttribute("month")!=null)){ %>
@@ -178,7 +207,7 @@
 					 <%}else{%>
 					 	전달 건수 대비  <a style="color: red;"> <B> <%=score2 %> % 감소</B> </a>
 					 <%} %>
-			 
+			 	
 				<div style="font-size: 7px;">
 				(전달건수-이번달건수/이번달건수)*100
 				</div>
@@ -253,15 +282,6 @@
                	선택없음
                <%} %></td>
                
-<!--                	<td style="text-align: right;"> -->
-<%--                	<%if((request.getAttribute("year")!=null&& --%>
-<%-- 				request.getAttribute("month")!=null)){ %> --%>
-<%-- 					<%int dd= (fs*100/sum*100);%> --%>
-<%-- 					 	<%=dd %> --%>
-<%-- 					 <%}else{%> --%>
-<!-- 					 	선택없음 -->
-<%-- 					 <%} %> --%>
-<!-- 					 </td> -->
                
 			<td style="text-align: right;">
 			<%if((request.getAttribute("year")!=null&&
@@ -307,24 +327,100 @@
                                             <tr>
                                             
                                             
-             <th>NO. </th>
+             <th style="white-space: nowrap;">
+             NO. 
+             
+            
+             <%if(lineup==1){ %>
+            <a href="sellinglist.ad?target=book_num&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else if(lineup==0){ %>
+            <a href="sellinglist.ad?target=book_num&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+             </th>
 <!--              booknum -->
-    	 		<th>ID</th>
+    	 		<th style="white-space: nowrap;">ID
     	 		
-     		<th>BookDate<img src="img/2.png" style="width: 12px;"> </th>
-     		<th style="white-space: nowrap;">대여일 <img src="img/2.png" style="width: 12px;"></th>
-     		<th style="white-space: nowrap;">반납일<img src="img/2.png" style="width: 12px;"></th>
-     		<th>차량번호</th>
-     		<th>결제금액</th>
+    	 	 <%if(lineup==1){ %>
+            <a href="sellinglist.ad?target=member_id&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="sellinglist.ad?target=member_id&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+    	 		
+    	 		
+    	 		</th>
+    	 		
+     		<th style="white-space: nowrap;">BookDate
+     		
+     		 <%if(lineup==1){ %>
+            <a href="sellinglist.ad?target=book_date&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="sellinglist.ad?target=book_date&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+                
+     		
+     		</th>
+     		<th style="white-space: nowrap;">대여일 
+     		
+             <%if(lineup==1){ %>
+            <a href="sellinglist.ad?target=pickup_date&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="sellinglist.ad?target=pickup_date&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+     		</th>
+     		<th style="white-space: nowrap;">반납일
+            <%if(lineup==1){ %>
+            <a href="sellinglist.ad?target=end_date&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="sellinglist.ad?target=end_date&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+     		</th>
+     		<th style="white-space: nowrap;">차량번호
+     		
+     		
+     		</th>
+     		<th style="white-space: nowrap;">
+     		결제금액
+     		 <%if(lineup==1){ %>
+            <a href="sellinglist.ad?target=book_price&lineup=0">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%}else{ %>
+            <a href="sellinglist.ad?target=book_price&lineup=1">
+            <img src="img/2.png" style="width: 12px;">
+            </a>
+            <%} %>
+     		
+     		
+     		</th>
    
    
      		<th style="white-space: nowrap; width: 100px;">
 
         <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: black;">현재상태 <img src="img/3.png" style="width: 12px;"></a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">대기</a>
-           <a class="dropdown-item" href="#">대여</a>
-          <a class="dropdown-item" href="#">반환</a>
+          <a class="dropdown-item" href="sellinglist.ad">미결제</a>
+           <a class="dropdown-item" href="sellinglist.ad?state=2">무통장</a>
+          <a class="dropdown-item" href="sellinglist.ad?state=1">카드</a>
 
         </div>
 
@@ -340,12 +436,17 @@
                                             </tr>
                                         </thead>
                                         <tfoot>
+         		<tr>
          		<%
 					if (bookList != null) {
 					for (BookBean book : bookList) {
 				%>
-				<td width="100"><%=book.getBook_num()%></td>
-				<td width="200"><%=book.getMember_id()%></td>
+<td style="width: 100px;">				
+<%=book.getBook_num()%></td>
+				
+				<td width="200">
+				<a href="MemberList.ad?id=<%=book.getMember_id()%>"><%=book.getMember_id()%></a>
+				</td>
 				<td width="150"><%=book.getBook_date()%></td>
 				<td width="150"><%=book.getPickup_date()%></td>
 				<td width="100"><%=book.getEnd_date()%></td>
@@ -355,15 +456,21 @@
 				
 				<td style="text-align: center;">
 				<%if(book.getBook_state()==1){ %>
-				<span class="badge badge-pill badge-danger">대여</span>
+				<a href="sellmodify.ad?num=<%=book.getBook_num()%>">
+				<span class="badge badge-pill badge-danger">카드</span></a>
+				<%}else if(book.getBook_state()==2){ %>
+				<a href="sellmodify.ad?num=<%=book.getBook_num()%>">
+				<span class="badge badge-pill badge-danger">무통장</span></a>
 				<%}else{ %>
-				<span class="badge badge-pill badge-warning">반환</span>
+				<a href="sellmodify.ad?num=<%=book.getBook_num()%>">
+				<span class="badge badge-pill badge-warning">미결제</span></a>
 				<%} %>
 				
 				</td>
 				
 			<td style="text-align: center;">
-			<span class="badge badge-dark">발행</span>
+			<a onclick="DetailBookInfo(<%=book.getBook_num()%>)">
+			<span class="badge badge-dark">발행</span></a>
 			</td>
 			
 		</tr>
@@ -381,16 +488,11 @@
   
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </main>
-                
+
                 
 
+                
 
-
-            </div>
-        </div>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="Admin/js/scripts.js"></script>
@@ -398,6 +500,9 @@
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="Admin/assets/demo/datatables-demo.js"></script>
     </body>
+    
+    
+    
     
     
 

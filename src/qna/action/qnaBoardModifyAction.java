@@ -16,8 +16,8 @@ public class qnaBoardModifyAction implements action {
 		
 		int qnaboardnum=Integer.parseInt(request.getParameter("qnaboard_num"));
 		String page=request.getParameter("page");
-		System.out.println(page);
-		System.out.println(qnaboardnum);
+//		System.out.println(page);
+//		System.out.println(qnaboardnum);
 		
 		qnaBoardDetailService detail=new qnaBoardDetailService();
 		qnaBoardbean article= detail.detail(qnaboardnum);

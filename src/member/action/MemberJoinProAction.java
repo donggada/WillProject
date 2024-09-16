@@ -16,6 +16,8 @@ public class MemberJoinProAction implements Action {
 		System.out.println("MemberJoinProAction");
 		ActionForward forward=null;
 		
+		
+		System.out.println(request.getParameter("baby"));
 		MemberBean bb=new MemberBean();
 		bb.setMember_name(request.getParameter("name"));
 		bb.setMember_id(request.getParameter("id"));
@@ -28,7 +30,7 @@ public class MemberJoinProAction implements Action {
 		bb.setMember_license(request.getParameter("license"));
 		bb.setMember_smoke(request.getParameter("smoke"));
 		bb.setMember_pet(request.getParameter("pet"));
-		bb.setMember_boby(request.getParameter("boby"));
+		bb.setMember_boby(request.getParameter("baby"));
 		
 		MemberJoinProService mjps=new MemberJoinProService();
 		

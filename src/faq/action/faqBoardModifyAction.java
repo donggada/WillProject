@@ -30,7 +30,7 @@ public class faqBoardModifyAction implements action {
 		
 		forward= new actionForward();
 		forward.setRedirect(false);
-		forward.setPath("/FAQ/faq_modify.jsp");
+		forward.setPath("/Admin/faq_modify.jsp");
 		
 		
 		

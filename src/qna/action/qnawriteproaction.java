@@ -22,7 +22,7 @@ public class qnawriteproaction implements action {
 		request.setCharacterEncoding("UTF-8");
 		String uploadpath=request.getRealPath("/upload");
 		String ip=request.getRemoteAddr();
-		System.out.println(ip);
+//		System.out.println(ip);
 
 		int maxsize = 10*1024*1024;
 
@@ -50,7 +50,7 @@ public class qnawriteproaction implements action {
 		qnaBoardWriteProService qnaboardwriteproservice= new qnaBoardWriteProService();
 		
 		boolean iswritesucce= qnaboardwriteproservice.regisartiset(qnaboardbean);
-		System.out.println(iswritesucce+"글쓰기결과");
+//		System.out.println(iswritesucce+"글쓰기결과");
 		
 		
 

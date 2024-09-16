@@ -51,7 +51,8 @@ private static qnaBoardDAO instance; {
 				num=rs.getInt(1) + 1;
 			}
 			
-			sql="insert into qnaBoard values(?,?,?,?,?,?,?,?,?,?,?,?,now(),null);";
+			sql="insert into qnaBoard(qnaBoard_num,qnaBoard_id,qnaBoard_pass,qnaBoard_subject,qnaBoard_content,qnaBoard_file,qnaBoard_re_ref,qnaBoard_re_lev,qnaBoard_re_seq,qnaBoard_readcount,qnaBoard_tag,qnaBoard_reply,qnaBoard_date )"
+					+ " values(?,?,?,?,?,?,?,?,?,?,?,?,now());";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
@@ -73,7 +74,7 @@ private static qnaBoardDAO instance; {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("insert에러");
+//			System.out.println("insert에러");
 		}finally {
 			close(rs); //jdbcutil.close()
 			close(pstmt);
@@ -108,7 +109,7 @@ private static qnaBoardDAO instance; {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("qboard selectlist오류");
+//			System.out.println("qboard selectlist오류");
 		}finally {
 			close(rs); //jdbcutil.close()
 			close(pstmt);
@@ -143,7 +144,7 @@ private static qnaBoardDAO instance; {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("qboard selectlist오류");
+//			System.out.println("qboard selectlist오류");
 		}finally {
 			close(rs); //jdbcutil.close()
 			close(pstmt);
@@ -165,7 +166,7 @@ private static qnaBoardDAO instance; {
 		
 		
 		try {
-			int startrow=(page-1)*10;
+			int startrow=(page-1)*4;
 			
 			
 			String sql="select *from qnaBoard order by qnaBoard_re_ref desc, qnaBoard_re_seq asc limit ?, ?";
@@ -200,7 +201,7 @@ private static qnaBoardDAO instance; {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("qboard selectarticlelist오류");
+//			System.out.println("qboard selectarticlelist오류");
 		}finally {
 			close(rs); //jdbcutil.close()
 			close(pstmt);
@@ -252,7 +253,7 @@ private static qnaBoardDAO instance; {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("board content오류");
+//			System.out.println("board content오류");
 		}finally {
 			close(rs); 
 			close(pstmt);
@@ -313,7 +314,7 @@ public int reply(qnaBoardbean b) {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("답변글쓰기 에러");
+//			System.out.println("답변글쓰기 에러");
 		}finally {
 			close(pstmt);
 		}
@@ -325,7 +326,7 @@ public int reply(qnaBoardbean b) {
 
 
 public boolean qnaboardcheck(qnaBoardbean qnaboard) {
-	System.out.println("체크");
+//	System.out.println("체크");
 	boolean check=false;
 	
 
@@ -359,7 +360,7 @@ public boolean qnaboardcheck(qnaBoardbean qnaboard) {
 
 
 public int check(qnaBoardbean article) {
-	System.out.println("check");
+//	System.out.println("check");
 	PreparedStatement pstmt=null;
 	ResultSet rs=null;
 	int check=-1;
@@ -374,10 +375,10 @@ public int check(qnaBoardbean article) {
 		
 		if(rs.next()) {	
 			if(rs.getString("qnaBoard_pass").equals(article.getQnaBoard_pass())) {
-				System.out.println("비밀번호일치");
+//				System.out.println("비밀번호일치");
 				check=1;
 			}else {
-				System.out.println("비밀번호틀림");
+//				System.out.println("비밀번호틀림");
 				check=0;
 			}
 					
@@ -407,7 +408,7 @@ public ArrayList<qnaBoardbean> selectarticlelistid(int page, int limit,String id
 	
 	
 	try {
-		int startrow=(page-1)*10;
+		int startrow=(page-1)*4;
 		
 		
 		String sql="select *from qnaBoard where qnaboard_id=? order by qnaboard_num desc limit ?,? ";
@@ -442,7 +443,7 @@ public ArrayList<qnaBoardbean> selectarticlelistid(int page, int limit,String id
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		System.out.println("qboard selectarticlelist오류");
+//		System.out.println("qboard selectarticlelist오류");
 	}finally {
 		close(rs); //jdbcutil.close()
 		close(pstmt);
@@ -453,7 +454,7 @@ public ArrayList<qnaBoardbean> selectarticlelistid(int page, int limit,String id
 }
 
 public int modifyArticle(qnaBoardbean article) {
-	System.out.println("수정dao");
+//	System.out.println("수정dao");
 	int insertCount = 0;
 	
 	PreparedStatement pstmt = null;
@@ -504,7 +505,7 @@ public int delete(int boardnum) {
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-		System.out.println("delete에러");
+//		System.out.println("delete에러");
 	}finally {
 		close(pstmt);
 	}
@@ -535,7 +536,7 @@ public int selectlist3() {
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		System.out.println("qboard selectlist오류");
+//		System.out.println("qboard selectlist오류");
 	}finally {
 		close(rs); //jdbcutil.close()
 		close(pstmt);
@@ -589,7 +590,7 @@ public ArrayList<qnaBoardbean> selectarticlelist3(int page, int limit) {
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		System.out.println("qboard selectarticlelist오류");
+//		System.out.println("qboard selectarticlelist오류");
 	}finally {
 		close(rs); //jdbcutil.close()
 		close(pstmt);
@@ -643,7 +644,7 @@ public ArrayList<qnaBoardbean> selectarticlelist4(int page, int limit) {
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		System.out.println("qboard selectarticlelist오류");
+//		System.out.println("qboard selectarticlelist오류");
 	}finally {
 		close(rs); //jdbcutil.close()
 		close(pstmt);
@@ -676,7 +677,7 @@ public int selectlist4() {
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		System.out.println("qboard selectlist오류");
+//		System.out.println("qboard selectlist오류");
 	}finally {
 		close(rs); //jdbcutil.close()
 		close(pstmt);

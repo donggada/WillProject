@@ -24,8 +24,8 @@ public class ReviewListAction implements Action {
 		
 		int page = 1;
 		int limit = 10;
-		String id= request.getParameter("Member_id");
-		System.out.println(id);
+//		String id= request.getParameter("Member_id");
+//		System.out.println(id);
 	
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));

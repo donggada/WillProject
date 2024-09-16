@@ -38,7 +38,7 @@ public class faqBoardDeleteProAction implements action {
 		}
 		
 		for(int val:num2){
-			System.out.println(val);
+			//System.out.println(val);
 			boardbean.setFaqboard_num(val);
 			boarddelete.delete(boardbean);
 			result=1;
